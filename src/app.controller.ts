@@ -6,7 +6,7 @@ import { PrsimaService } from './prisma/prisma.service'
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private prisma: PrsimaService
+    private prisma: PrsimaService,
   ) {}
 
   @Get('/hello')

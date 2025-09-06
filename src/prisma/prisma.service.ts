@@ -1,6 +1,5 @@
-
-import { Injectable } from "@nestjs/common";
-import { PrismaClient } from "@prisma/client";
+import { Injectable } from '@nestjs/common'
+import { PrismaClient } from '@prisma/client'
 
 @Injectable()
 export class PrsimaService extends PrismaClient {
@@ -8,7 +7,7 @@ export class PrsimaService extends PrismaClient {
 
   constructor() {
     super({
-      log: ['warn', 'error']
+      log: ['warn', 'error'],
     })
   }
 
