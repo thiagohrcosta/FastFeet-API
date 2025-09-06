@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  DELIVERYMAN
+}
+
+enum DeliveryStatus {
+  PENDING
+  AWAITING
+  WITHDRAWN
+  DELIVERED
+  RETURNED
+}
+
+model User {
+  id          String @id @default(uuid())
+  name        String
+  document_id String @unique
+  password    String
+  role        Role
+
+  deliveries Delivery[] @relation("DeliveryDeliveryman")
+
+  @@map("users")
+}
+
+model Recipient {
+  id          String  @id @default(uuid())
+  name        String
+  document_id String  @unique
+  address     String
+  phone       String?
+
+  deliveries Delivery[]
+
+  @@map("recipients")
+}
+
+model Delivery {
+  id       String         @id @default(uuid())
+  product  String
+  status   DeliveryStatus @default(PENDING)
+  photoUrl String?
+
+  recipientId String
+  recipient   Recipient @relation(fields: [recipientId], references: [id])
+
+  deliverymanId String?
+  deliveryman   User?   @relation("DeliveryDeliveryman", fields: [deliverymanId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("deliveries")
+}
