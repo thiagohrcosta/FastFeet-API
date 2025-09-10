@@ -9,12 +9,12 @@ import { AuthModule } from './auth/auth.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
-    isGlobal: true,
-    validate: env => envSchema.parse(env),
-    envFilePath: '.env',
-  }),
-  AuthModule,
-],
+      isGlobal: true,
+      validate: (env) => envSchema.parse(env),
+      envFilePath: '.env',
+    }),
+    AuthModule,
+  ],
   controllers: [CreateAccountController],
   providers: [AppService, PrismaService],
 })

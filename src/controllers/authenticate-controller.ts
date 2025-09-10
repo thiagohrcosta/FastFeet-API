@@ -1,14 +1,20 @@
-
-import { Body, Controller, HttpCode, Post, UnauthorizedException, UsePipes } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { compare } from "bcryptjs";
-import { ZodValidationPipe } from "src/pipes/zod-validation-pipe";
-import { PrismaService } from "src/prisma/prisma.service";
-import z from "zod";
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UnauthorizedException,
+  UsePipes,
+} from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { compare } from 'bcryptjs'
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
+import { PrismaService } from 'src/prisma/prisma.service'
+import z from 'zod'
 
 const authenticateBodySchema = z.object({
-  document_id: z.string(),
-  password: z.string().min(6)
+  documentId: z.string(),
+  password: z.string().min(6),
 })
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
@@ -17,23 +23,23 @@ type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 export class AuthenticateController {
   constructor(
     private prisma: PrismaService,
-    private jwt: JwtService
+    private jwt: JwtService,
   ) {}
 
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(authenticateBodySchema))
   async handle(@Body() body: AuthenticateBodySchema) {
-    const { document_id, password } = body
+    const { documentId, password } = body
 
-    if (!document_id || !password) {
+    if (!documentId || !password) {
       throw new UnauthorizedException('Invalid credentials.')
     }
 
     const user = await this.prisma.user.findUnique({
       where: {
-        document_id
-      }
+        document_id: documentId,
+      },
     })
 
     if (!user) {
@@ -46,7 +52,7 @@ export class AuthenticateController {
       throw new UnauthorizedException('Invalid credentials.')
     }
 
-    const accessToken  = this.jwt.sign({sub: 'user-id'})
+    const accessToken = this.jwt.sign({ sub: 'user-id' })
 
     return {
       acess_token: accessToken,
