@@ -39,6 +39,7 @@ model Recipient {
   document_id String  @unique
   address     String
   phone       String?
+  email       String  @unique
 
   deliveries Delivery[]
 
