@@ -7,8 +7,8 @@ POST {{baseUrl}}/accounts
 Content-Type: application/json
 
 {
-  "name": "Jonny Doe",
-  "document_id": "090.090.090-00",
+  "name": "Jonny Doe Jr",
+  "documentId": "090.090.090-02",
   "password": "123456"
 }
 
@@ -19,6 +19,6 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-  "document_id": "090.090.090-00",
+  "docuemntId": "090.090.090-02",
   "password": "123456"
 }
