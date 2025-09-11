@@ -24,20 +24,23 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/accounts
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
-
 ###
 
 # @name update_account
-PATCH {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+PATCH {{baseUrl}}/accounts/d57eafb2-979f-4c77-ad45-c9d4ccf5d41c
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "Bruce Wayne",
-  "documentId": "09009009000",
-  "password": "123456"
+  "name": "Bruce Wayne Jr",
+  "documentId": "777.888.977-01"
 }
+###
 
+# @name delete_account
+DELETE {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
 ###
 
 # @name authenticate
@@ -48,8 +51,6 @@ Content-Type: application/json
   "documentId": "123.123.123-12",
   "password": "123456"
 }
-
-
 ###
 
 # @name list_recipients

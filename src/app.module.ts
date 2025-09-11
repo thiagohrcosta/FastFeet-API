@@ -10,6 +10,7 @@ import { ListAccountsController } from './controllers/list-account-controller'
 import { ListRecipientController } from './controllers/list-recipient-controller'
 import { GetAccountController } from './controllers/get-account.controller'
 import { UpdateAccountController } from './controllers/update-account-controller'
+import { DeleteAccountController } from './controllers/delete-account.controller'
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UpdateAccountController } from './controllers/update-account-controller
     ListAccountsController,
     CreateAccountController,
     UpdateAccountController,
+    DeleteAccountController,
     ListRecipientController,
     CreateRecipientController],
   providers: [AppService, PrismaService],
