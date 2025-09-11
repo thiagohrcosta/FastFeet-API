@@ -13,12 +13,61 @@ Content-Type: application/json
 }
 
 ###
+# @name get_one_account
+GET {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_accounts
+GET {{baseUrl}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name update_account
+PATCH {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Bruce Wayne",
+  "documentId": "09009009000",
+  "password": "123456"
+}
+
+###
 
 # @name authenticate
 POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-  "docuemntId": "090.090.090-02",
+  "documentId": "123.123.123-12",
   "password": "123456"
+}
+
+
+###
+
+# @name list_recipients
+GET {{baseUrl}}/recipients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name recipient
+POST {{baseUrl}}/recipients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"name": "Marcus Fenix",
+	"documentId": "555.666.777-88",
+	"address": "1047 Brea, CA 92821",
+	"phone": "(714) 438-7243",
+	"email": "marcusfenix@email.com"
 }

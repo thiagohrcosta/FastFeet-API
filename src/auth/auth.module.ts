@@ -6,6 +6,7 @@ import { AuthenticateController } from 'src/controllers/authenticate-controller'
 import { Env } from 'src/env'
 import { PrismaModule } from 'src/prisma/prisma.module'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { JwtStrategy } from './jwt.stratety'
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import { PrismaService } from 'src/prisma/prisma.service'
     }),
   ],
   controllers: [AuthenticateController],
-  providers: [PrismaService],
+  providers: [JwtStrategy, PrismaService],
 })
 export class AuthModule {}
