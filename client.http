@@ -13,12 +13,85 @@ Content-Type: application/json
 }
 
 ###
+# @name get_one_account
+GET {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_accounts
+GET {{baseUrl}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+###
+
+# @name update_account
+PATCH {{baseUrl}}/accounts/d57eafb2-979f-4c77-ad45-c9d4ccf5d41c
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Bruce Wayne Jr",
+  "documentId": "777.888.977-01"
+}
+###
+
+# @name delete_account
+DELETE {{baseUrl}}/accounts/3f9672a1-0627-4eaa-bdf7-6750a2ec6296
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+###
 
 # @name authenticate
 POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-  "docuemntId": "090.090.090-02",
+  "documentId": "123.123.123-12",
   "password": "123456"
 }
+###
+
+# @name get_recipient
+GET {{baseUrl}}/recipients/0362c26b-5047-4718-80cd-65c70d4bd45a
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+###
+
+# @name list_recipients
+GET {{baseUrl}}/recipients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_recipient
+POST {{baseUrl}}/recipients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"name": "Rickson Gracie",
+	"documentId": "111.788.888-90",
+	"address": "1047 Brea, CA 92821",
+	"phone": "(714) 438-7243",
+	"email": "rickson@gracie.com"
+}
+
+###
+
+# @name update_recipient
+PATCH {{baseUrl}}/recipients/0362c26b-5047-4718-80cd-65c70d4bd45a
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"email": "janejanedoe@email.com"
+}
+###
+
+# @name delete_recipient
+DELETE {{baseUrl}}/recipients/c9f4cd2b-fbc1-4592-823a-711ee2068d1e
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
