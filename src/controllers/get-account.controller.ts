@@ -27,10 +27,7 @@ export class GetAccountController {
 
     const account = await this.prisma.user.findFirst({
       where: {
-        OR: [
-          { id: identifier },
-          { document_id: identifier },
-        ],
+        OR: [{ id: identifier }, { document_id: identifier }],
       },
       select: {
         id: true,

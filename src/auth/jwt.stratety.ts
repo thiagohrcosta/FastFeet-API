@@ -1,13 +1,13 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { PassportStrategy } from "@nestjs/passport";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import { Env } from "src/env";
-import z from "zod";
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { PassportStrategy } from '@nestjs/passport'
+import { ExtractJwt, Strategy } from 'passport-jwt'
+import { Env } from 'src/env'
+import z from 'zod'
 
 const tokenPayloadSchema = z.object({
   sub: z.string(),
-  role: z.string()
+  role: z.string(),
 })
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>

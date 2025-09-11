@@ -53,6 +53,12 @@ Content-Type: application/json
 }
 ###
 
+# @name get_recipient
+GET {{baseUrl}}/recipients/0362c26b-5047-4718-80cd-65c70d4bd45a
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+###
+
 # @name list_recipients
 GET {{baseUrl}}/recipients
 Content-Type: application/json
@@ -60,15 +66,32 @@ Authorization: Bearer {{authToken}}
 
 ###
 
-# @name recipient
+# @name create_recipient
 POST {{baseUrl}}/recipients
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-	"name": "Marcus Fenix",
-	"documentId": "555.666.777-88",
+	"name": "Rickson Gracie",
+	"documentId": "111.788.888-90",
 	"address": "1047 Brea, CA 92821",
 	"phone": "(714) 438-7243",
-	"email": "marcusfenix@email.com"
+	"email": "rickson@gracie.com"
 }
+
+###
+
+# @name update_recipient
+PATCH {{baseUrl}}/recipients/0362c26b-5047-4718-80cd-65c70d4bd45a
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"email": "janejanedoe@email.com"
+}
+###
+
+# @name delete_recipient
+DELETE {{baseUrl}}/recipients/c9f4cd2b-fbc1-4592-823a-711ee2068d1e
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

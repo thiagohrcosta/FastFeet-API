@@ -17,15 +17,16 @@ import { Prisma } from '@prisma/client'
 const updateAccountBodySchema = z.object({
   name: z.string().optional(),
   documentId: z.string().optional(),
-  role: z.enum(['ADMIN', 'DELIVERYMAN']).optional(),
-  password: z.string().min(6).optional(),
+  address: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.email().optional()
 })
 
 type UpdateAccountBodySchema = z.infer<typeof updateAccountBodySchema>
 
-@Controller('/accounts')
+@Controller('/recipients')
 @UseGuards(JwtAuthGuard)
-export class UpdateAccountController {
+export class UpdateRecipientController {
   constructor(private prisma: PrismaService) {}
 
   @Patch(':id')
@@ -44,23 +45,25 @@ export class UpdateAccountController {
     const data: Prisma.UserUpdateInput = {
       ...(body.name !== undefined && { name: body.name }),
       ...(body.documentId !== undefined && { document_id: body.documentId }),
-      ...(body.role !== undefined && { role: body.role }),
-      ...(body.password !== undefined && {
-        password: await hash(body.password, 8),
-      }),
+      ...(body.address !== undefined && { document_id: body.address }),
+      ...(body.phone !== undefined && { phone: body.phone }),
+      ...(body.email !== undefined && { email: body.email}),
     }
 
-    const updatedUser = await this.prisma.user.update({
+
+    const updateRecipient = await this.prisma.recipient.update({
       where: { id },
       data,
       select: {
         id: true,
         name: true,
         document_id: true,
-        role: true,
+        address: true,
+        phone: true,
+        email: true
       },
     })
 
-    return updatedUser
+    return updateRecipient
   }
 }

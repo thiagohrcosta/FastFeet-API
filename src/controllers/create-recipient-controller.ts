@@ -1,15 +1,25 @@
-import { Body, ConflictException, Controller, ForbiddenException, HttpCode, Post, Req, UseGuards, UsePipes } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { ZodValidationPipe } from "src/pipes/zod-validation-pipe";
-import { PrismaService } from "src/prisma/prisma.service";
-import z, { string } from "zod";
+import {
+  Body,
+  ConflictException,
+  Controller,
+  ForbiddenException,
+  HttpCode,
+  Post,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
+import { PrismaService } from 'src/prisma/prisma.service'
+import z, { string } from 'zod'
 
 const createRecipientBodySchema = z.object({
   name: string(),
   documentId: string(),
   address: string(),
   phone: string(),
-  email: string()
+  email: string(),
 })
 
 type CreateRecipientBodySchema = z.infer<typeof createRecipientBodySchema>
@@ -22,20 +32,19 @@ export class CreateRecipientController {
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(createRecipientBodySchema))
-
   async handle(@Body() body: CreateRecipientBodySchema, @Req() req) {
     const user = req.user
 
     if (user.role !== 'ADMIN') {
-      throw new ForbiddenException('Only admins can create recipients.');
+      throw new ForbiddenException('Only admins can create recipients.')
     }
 
     const { name, documentId, address, phone, email } = body
 
     const userWithSameDocumentId = await this.prisma.recipient.findUnique({
       where: {
-        document_id: documentId
-      }
+        document_id: documentId,
+      },
     })
 
     if (userWithSameDocumentId) {
@@ -44,8 +53,8 @@ export class CreateRecipientController {
 
     const recipientWithSameEmail = await this.prisma.recipient.findUnique({
       where: {
-        email
-      }
+        email,
+      },
     })
 
     if (recipientWithSameEmail) {
@@ -58,14 +67,13 @@ export class CreateRecipientController {
         document_id: documentId,
         address,
         phone,
-        email
-      }
+        email,
+      },
     })
 
     return {
       name: recipient.name,
       document_id: recipient.document_id,
     }
-
   }
 }

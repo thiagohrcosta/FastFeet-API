@@ -1,4 +1,11 @@
-import { Controller, ForbiddenException, Get, HttpCode, Req, UseGuards } from '@nestjs/common'
+import {
+  Controller,
+  ForbiddenException,
+  Get,
+  HttpCode,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { PrismaService } from 'src/prisma/prisma.service'
 
@@ -22,7 +29,7 @@ export class ListRecipientController {
         name: true,
         document_id: true,
         email: true,
-        phone: true
+        phone: true,
       },
     })
 

@@ -1,4 +1,11 @@
-import { Controller, ForbiddenException, Get, HttpCode, Req, UseGuards } from '@nestjs/common'
+import {
+  Controller,
+  ForbiddenException,
+  Get,
+  HttpCode,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { PrismaService } from 'src/prisma/prisma.service'
 

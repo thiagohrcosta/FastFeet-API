@@ -11,6 +11,9 @@ import { ListRecipientController } from './controllers/list-recipient-controller
 import { GetAccountController } from './controllers/get-account.controller'
 import { UpdateAccountController } from './controllers/update-account-controller'
 import { DeleteAccountController } from './controllers/delete-account.controller'
+import { GetRecipientController } from './controllers/get-recipient-controller'
+import { UpdateRecipientController } from './controllers/update-recipient-controller'
+import { DeleteRecipientController } from './controllers/delete-recipient-controller'
 
 @Module({
   imports: [
@@ -27,8 +30,12 @@ import { DeleteAccountController } from './controllers/delete-account.controller
     CreateAccountController,
     UpdateAccountController,
     DeleteAccountController,
+    GetRecipientController,
     ListRecipientController,
-    CreateRecipientController],
+    CreateRecipientController,
+    UpdateRecipientController,
+    DeleteRecipientController,
+  ],
   providers: [AppService, PrismaService],
 })
 export class AppModule {}
