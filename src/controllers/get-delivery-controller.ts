@@ -1,18 +1,23 @@
-import { Controller, ForbiddenException, Get, HttpCode, Param, Req, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
+import {
+  Controller,
+  ForbiddenException,
+  Get,
+  HttpCode,
+  Param,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { PrismaService } from 'src/prisma/prisma.service'
 
 @Controller('/deliveries')
 @UseGuards(JwtAuthGuard)
 export class GetDeliveryController {
   constructor(private prisma: PrismaService) {}
 
-  @Get(":id")
+  @Get(':id')
   @HttpCode(200)
-  async handle(
-    @Param('id') id: string,
-    @Req() req
-  ) {
+  async handle(@Param('id') id: string, @Req() req) {
     const user = req.user
 
     if (user.role !== 'ADMIN' && user.role !== 'DELIVERYMAN') {
@@ -21,24 +26,21 @@ export class GetDeliveryController {
 
     const fetchDelivery = await this.prisma.delivery.findFirst({
       where: {
-        id
-      }
+        id,
+      },
     })
 
     const fetchRecipientInformation = await this.prisma.recipient.findFirst({
       where: {
-        id: fetchDelivery?.recipientId
-      }
+        id: fetchDelivery?.recipientId,
+      },
     })
 
     return {
       fetchDelivery,
       informations: {
-        fetchRecipientInformation
-      }
+        fetchRecipientInformation,
+      },
     }
-
-
   }
-
 }

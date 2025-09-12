@@ -1,11 +1,11 @@
-import { Controller, Get, HttpCode, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
+import { Controller, Get, HttpCode, UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { PrismaService } from 'src/prisma/prisma.service'
 
 @Controller('/deliveries')
 @UseGuards(JwtAuthGuard)
 export class ListDeliveryController {
-  constructor(private prisma: PrismaService){}
+  constructor(private prisma: PrismaService) {}
 
   @Get()
   @HttpCode(200)
@@ -17,12 +17,12 @@ export class ListDeliveryController {
         photoUrl: true,
         recipientId: true,
         deliverymanId: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     })
 
     return {
-      fetchDeliveries
+      fetchDeliveries,
     }
   }
 }

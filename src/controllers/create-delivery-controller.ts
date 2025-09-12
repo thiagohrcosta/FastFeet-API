@@ -1,10 +1,12 @@
-import { Body, Controller, HttpCode, Post,  } from "@nestjs/common";
-import { PrismaService } from "src/prisma/prisma.service";
-import z from "zod";
+import { Body, Controller, HttpCode, Post } from '@nestjs/common'
+import { PrismaService } from 'src/prisma/prisma.service'
+import z from 'zod'
 
 const createDeliveryBodySchema = z.object({
   product: z.string(),
-  status:  z.enum(['PENDING', 'AWAITING', 'WITHDRAWN', 'DELIVERED', 'RETURNED' ]).default('PENDING'),
+  status: z
+    .enum(['PENDING', 'AWAITING', 'WITHDRAWN', 'DELIVERED', 'RETURNED'])
+    .default('PENDING'),
   photoUrl: z.string().optional(),
   recipientId: z.uuid(),
   deliverymanId: z.uuid(),
@@ -27,9 +29,8 @@ export class CreateDeliveryController {
         status,
         photoUrl,
         recipientId,
-        deliverymanId
-      }
+        deliverymanId,
+      },
     })
-
   }
 }

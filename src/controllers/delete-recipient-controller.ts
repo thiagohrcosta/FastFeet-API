@@ -1,6 +1,15 @@
-import { Controller, Delete, ForbiddenException, Get, HttpCode, NotFoundException, Param, Req, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { PrismaService } from "src/prisma/prisma.service";
+import {
+  Controller,
+  Delete,
+  ForbiddenException,
+  HttpCode,
+  NotFoundException,
+  Param,
+  Req,
+  UseGuards,
+} from '@nestjs/common'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { PrismaService } from 'src/prisma/prisma.service'
 
 @Controller('/recipients')
 @UseGuards(JwtAuthGuard)
@@ -9,10 +18,7 @@ export class DeleteRecipientController {
 
   @Delete(':id')
   @HttpCode(200)
-  async handle(
-    @Param('id') id: string,
-    @Req() req
-  ) {
+  async handle(@Param('id') id: string, @Req() req) {
     const user = req.user
 
     if (user.role !== 'ADMIN') {
@@ -31,11 +37,8 @@ export class DeleteRecipientController {
 
     await this.prisma.recipient.delete({
       where: {
-        id
-      }
+        id,
+      },
     })
-
   }
-
-
 }
