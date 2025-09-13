@@ -104,10 +104,10 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "product": "Cry Havoc - Jack Carr Book",
+  "product": "The Terminal List",
   "photoUrl": "https://res.cloudinary.com/dloadb2bx/image/upload/v1757644517/81iQLQU3cOL._SY466__evb8ol.jpg",
   "deliverymanId": "d57eafb2-979f-4c77-ad45-c9d4ccf5d41c",
-  "recipientId": "f874c952-e176-47aa-8518-1d05bf09b21d"
+  "recipientId": "f1663efe-3def-4cce-8c0c-7c4ba8cb6e58"
 }
 
 ###
@@ -120,19 +120,19 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name get_delivery
-GET {{baseUrl}}/deliveries/3acdc5f3-6755-4fcc-9cca-f23ee15878d3
+GET {{baseUrl}}/deliveries/509bb322-60b4-4e99-b200-6f5784b2c123
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ###
 
 # @name update_delivery
-PATCH {{baseUrl}}/deliveries/3acdc5f3-6755-4fcc-9cca-f23ee15878d3
+PATCH {{baseUrl}}/deliveries/509bb322-60b4-4e99-b200-6f5784b2c123
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "status": "AWAITING"
+  "status": "DELIVERED"
 }
 
 ###
@@ -141,5 +141,24 @@ Authorization: Bearer {{authToken}}
 DELETE {{baseUrl}}/deliveries/a55d6365-e11e-4c33-af0b-8c505d9bb6d5
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_deliveryman_items
+GET {{baseUrl}}/deliveries/items/d57eafb2-979f-4c77-ad45-c9d4ccf5d41c
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_recipient_items
+GET {{baseUrl}}/recipient/items
+Content-Type: application/json
+# Authorization: Bearer {{authToken}}
+
+{
+  "documentId": "001.000.004-44",
+  "email": "leechild@email.com"
+}
 
 ###
