@@ -137,6 +137,24 @@ Authorization: Bearer {{authToken}}
 
 ###
 
+# @name update_delivery_with_photo
+PATCH {{baseUrl}}/deliveries/509bb322-60b4-4e99-b200-6f5784b2c123
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer {{authToken}}
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="status"
+
+DELIVERED
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="foto.jpg"
+Content-Type: image/jpeg
+
+< ./src/assets/cryhavoc.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
 # @name delete_delivery
 DELETE {{baseUrl}}/deliveries/a55d6365-e11e-4c33-af0b-8c505d9bb6d5
 Content-Type: application/json

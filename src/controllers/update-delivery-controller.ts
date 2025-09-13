@@ -8,11 +8,16 @@ import {
   Patch,
   Req,
   UseGuards,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { NotificationService } from 'src/services/notification.service'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import cloudinary from 'src/config/cloudinary.config'
 import z from 'zod'
 
 const updateDeliveryBodySchema = z.object({
@@ -20,7 +25,6 @@ const updateDeliveryBodySchema = z.object({
   status: z
     .enum(['PENDING', 'AWAITING', 'WITHDRAWN', 'DELIVERED', 'RETURNED'])
     .optional(),
-  photoUrl: z.string().optional(),
   recipientId: z.string().uuid().optional(),
   deliverymanId: z.string().uuid().optional(),
 })
@@ -36,9 +40,22 @@ export class UpdateDeliveryController {
   ) {}
 
   @Patch(':id')
+  @UseInterceptors(
+    FileInterceptor('photo', {
+      storage: new CloudinaryStorage({
+        cloudinary,
+        params: async (req, file) => ({
+          folder: 'deliveries',
+          public_id: `${Date.now()}-${file.originalname}`,
+          format: 'jpg',
+        }),
+      }),
+    }),
+  )
   @HttpCode(200)
   async handle(
     @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
     @Body() body: UpdateDeliveryBodySchema,
     @Req() req,
   ) {
@@ -59,7 +76,7 @@ export class UpdateDeliveryController {
       findDeliveryToUpdate.deliverymanId !== user.id
     ) {
       throw new ForbiddenException(
-        'Only the deliveryman who withdrew the package can mark it as delivered.'
+        'Only the deliveryman who withdrew the package can mark it as delivered.',
       )
     }
 
@@ -73,8 +90,8 @@ export class UpdateDeliveryController {
         deliverymanId: body.deliverymanId,
       }),
       ...(body.product !== undefined && { product: body.product }),
-      ...(body.photoUrl !== undefined && { photoUrl: body.photoUrl }),
       ...(body.recipientId !== undefined && { recipientId: body.recipientId }),
+      ...(file && { photoUrl: file.path }),
     }
 
     const updatedDelivery = await this.prisma.delivery.update({
@@ -95,6 +112,7 @@ export class UpdateDeliveryController {
       id: updatedDelivery.id,
       status: updatedDelivery.status,
       deliverymanId: updatedDelivery.deliverymanId,
+      photoUrl: updatedDelivery.photoUrl,
     }
   }
 }
