@@ -49,7 +49,7 @@ import { NotificationService } from './services/notification.service'
     UpdateDeliveryController,
     DeleteDeliveryController,
     ListDeliveryManItemsController,
-    ListRecipientItemsController
+    ListRecipientItemsController,
   ],
   providers: [AppService, PrismaService, NotificationService],
 })
