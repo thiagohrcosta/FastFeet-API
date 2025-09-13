@@ -10,9 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { NotFoundError } from 'rxjs'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { NotificationService } from 'src/services/notification.service'
 import z from 'zod'
 
 const updateDeliveryBodySchema = z.object({
@@ -30,7 +30,10 @@ type UpdateDeliveryBodySchema = z.infer<typeof updateDeliveryBodySchema>
 @Controller('/deliveries')
 @UseGuards(JwtAuthGuard)
 export class UpdateDeliveryController {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notificationService: NotificationService,
+  ) {}
 
   @Patch(':id')
   @HttpCode(200)
@@ -41,16 +44,27 @@ export class UpdateDeliveryController {
   ) {
     const user = req.user
 
-    if (user.role !== 'ADMIN') {
-      throw new ForbiddenException('Unauthorized access.')
-    }
-
     const findDeliveryToUpdate = await this.prisma.delivery.findFirst({
       where: { id },
+      include: { recipient: true },
     })
 
     if (!findDeliveryToUpdate) {
       throw new NotFoundException('Delivery not found.')
+    }
+
+    if (
+      body.status === 'DELIVERED' &&
+      user.role === 'DELIVERYMAN' &&
+      findDeliveryToUpdate.deliverymanId !== user.id
+    ) {
+      throw new ForbiddenException(
+        'Only the deliveryman who withdrew the package can mark it as delivered.'
+      )
+    }
+
+    if (user.role !== 'ADMIN' && user.role !== 'DELIVERYMAN') {
+      throw new ForbiddenException('Unauthorized access.')
     }
 
     const data: Prisma.DeliveryUpdateInput = {
@@ -63,14 +77,24 @@ export class UpdateDeliveryController {
       ...(body.recipientId !== undefined && { recipientId: body.recipientId }),
     }
 
-    return await this.prisma.delivery.update({
+    const updatedDelivery = await this.prisma.delivery.update({
       where: { id },
       data,
-      select: {
-        id: true,
-        status: true,
-        deliverymanId: true,
-      },
+      include: { recipient: true },
     })
+
+    if (body.status && body.status !== findDeliveryToUpdate.status) {
+      await this.notificationService.notifyRecipient(
+        updatedDelivery.recipient.email,
+        updatedDelivery.product,
+        updatedDelivery.status,
+      )
+    }
+
+    return {
+      id: updatedDelivery.id,
+      status: updatedDelivery.status,
+      deliverymanId: updatedDelivery.deliverymanId,
+    }
   }
 }
