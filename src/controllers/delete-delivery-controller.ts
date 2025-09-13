@@ -11,9 +11,9 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { PrismaService } from 'src/prisma/prisma.service'
 
-@Controller('/recipients')
+@Controller('/deliveries')
 @UseGuards(JwtAuthGuard)
-export class DeleteRecipientController {
+export class DeleteDeliveryController {
   constructor(private prisma: PrismaService) {}
 
   @Delete(':id')
@@ -25,17 +25,17 @@ export class DeleteRecipientController {
       throw new ForbiddenException('Unauthorized access.')
     }
 
-    const findRecipientToDelete = await this.prisma.recipient.findFirst({
+    const findDeliveryToDelete = await this.prisma.delivery.findFirst({
       where: {
         id,
       },
     })
 
-    if (!findRecipientToDelete) {
-      throw new NotFoundException('Recipient not found')
+    if (!findDeliveryToDelete) {
+      throw new NotFoundException('Delivery not found')
     }
 
-    await this.prisma.recipient.delete({
+    await this.prisma.delivery.delete({
       where: {
         id,
       },

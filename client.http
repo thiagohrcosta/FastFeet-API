@@ -95,3 +95,51 @@ Authorization: Bearer {{authToken}}
 DELETE {{baseUrl}}/recipients/c9f4cd2b-fbc1-4592-823a-711ee2068d1e
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_delivery
+POST {{baseUrl}}/deliveries
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "product": "Cry Havoc - Jack Carr Book",
+  "photoUrl": "https://res.cloudinary.com/dloadb2bx/image/upload/v1757644517/81iQLQU3cOL._SY466__evb8ol.jpg",
+  "deliverymanId": "d57eafb2-979f-4c77-ad45-c9d4ccf5d41c",
+  "recipientId": "f874c952-e176-47aa-8518-1d05bf09b21d"
+}
+
+###
+
+# @name list_deliveries
+GET {{baseUrl}}/deliveries/
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_delivery
+GET {{baseUrl}}/deliveries/3acdc5f3-6755-4fcc-9cca-f23ee15878d3
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name update_delivery
+PATCH {{baseUrl}}/deliveries/3acdc5f3-6755-4fcc-9cca-f23ee15878d3
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "status": "AWAITING"
+}
+
+###
+
+# @name delete_delivery
+DELETE {{baseUrl}}/deliveries/a55d6365-e11e-4c33-af0b-8c505d9bb6d5
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
