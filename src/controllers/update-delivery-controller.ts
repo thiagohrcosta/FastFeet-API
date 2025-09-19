@@ -12,12 +12,12 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
-import { PrismaService } from 'src/prisma/prisma.service'
-import { NotificationService } from 'src/services/notification.service'
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard'
+import { PrismaService } from '@/prisma/prisma.service'
+import { NotificationService } from '@/services/notification.service'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
-import cloudinary from 'src/config/cloudinary.config'
+import cloudinary from '@/config/cloudinary.config'
 import z from 'zod'
 
 const updateDeliveryBodySchema = z.object({

@@ -8,10 +8,10 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from '@/prisma/prisma.service'
 import z from 'zod'
 import { hash } from 'bcryptjs'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard'
 import { Prisma } from '@prisma/client'
 
 const updateAccountBodySchema = z.object({

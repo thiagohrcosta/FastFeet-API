@@ -8,8 +8,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard'
+import { PrismaService } from '@/prisma/prisma.service'
 
 @Controller('/accounts')
 @UseGuards(JwtAuthGuard)
