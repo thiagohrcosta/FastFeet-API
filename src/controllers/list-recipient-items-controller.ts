@@ -1,5 +1,5 @@
 import { Controller, Body, ForbiddenException, Get } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from '@/prisma/prisma.service'
 
 @Controller('/recipient/items')
 export class ListRecipientItemsController {
