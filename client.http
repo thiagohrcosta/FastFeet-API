@@ -1,6 +1,6 @@
 
 @baseUrl = http://localhost:3333
-@authToken = {{authenticate.response.body.acess_token}}
+@authToken = {{authenticate.response.body.access_token}}
 
 # @name create_account
 POST {{baseUrl}}/accounts
@@ -103,13 +103,6 @@ POST {{baseUrl}}/deliveries
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
-{
-  "product": "The Terminal List",
-  "photoUrl": "https://res.cloudinary.com/dloadb2bx/image/upload/v1757644517/81iQLQU3cOL._SY466__evb8ol.jpg",
-  "deliverymanId": "d57eafb2-979f-4c77-ad45-c9d4ccf5d41c",
-  "recipientId": "f1663efe-3def-4cce-8c0c-7c4ba8cb6e58"
-}
-
 ###
 
 # @name list_deliveries
@@ -127,12 +120,12 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name update_delivery
-PATCH {{baseUrl}}/deliveries/509bb322-60b4-4e99-b200-6f5784b2c123
+PATCH {{baseUrl}}/deliveries/d1472e4f-ecb6-49ba-99d6-3b83d60ed3e0
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "status": "DELIVERED"
+  "status": "RETURNED"
 }
 
 ###
@@ -178,5 +171,12 @@ Content-Type: application/json
   "documentId": "001.000.004-44",
   "email": "leechild@email.com"
 }
+
+###
+
+# @name list_deliverymans
+GET {{baseUrl}}/deliverymen
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 ###
