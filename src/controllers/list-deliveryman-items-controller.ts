@@ -26,12 +26,13 @@ export class ListDeliveryManItemsController {
 
     const listDeliverys = await this.prisma.delivery.findMany({
       where: {
-        deliverymanId: user.id,
+        deliverymanId: id,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     })
 
-    return {
-      listDeliverys,
-    }
+    return { listDeliverys }
   }
 }
