@@ -24,7 +24,7 @@ export class ListDeliveryManItemsController {
       throw new ForbiddenException('Access denied')
     }
 
-    const listDeliverys = await this.prisma.delivery.findMany({
+    const listDeliveries = await this.prisma.delivery.findMany({
       where: {
         deliverymanId: id,
       },
@@ -32,7 +32,7 @@ export class ListDeliveryManItemsController {
         createdAt: 'desc',
       },
     })
-
-    return { listDeliverys }
+    console.log(listDeliveries)
+    return { listDeliveries }
   }
 }

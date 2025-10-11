@@ -156,7 +156,7 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name list_deliveryman_items
-GET {{baseUrl}}/deliveries/items/0e7c7b84-656f-4a84-b6de-2117b72864e8
+GET {{baseUrl}}/deliveries/items/d57eafb2-979f-4c77-ad45-c9d4ccf5d41c
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
