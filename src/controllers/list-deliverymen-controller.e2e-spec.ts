@@ -29,7 +29,7 @@ describe('ListDeliveryMenController', () => {
       .useValue({
         canActivate: (context: ExecutionContext) => {
           const request = context.switchToHttp().getRequest()
-          request.user = { id: 'admin-id', role: 'ADMIN' } // Simula admin autenticado
+          request.user = { id: 'admin-id', role: 'ADMIN' }
           return true
         },
       })
