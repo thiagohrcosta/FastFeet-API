@@ -6,7 +6,7 @@ import { AuthenticateController } from '@/controllers/authenticate-controller'
 import { PrismaModule } from '@/prisma/prisma.module'
 import { PrismaService } from '@/prisma/prisma.service'
 import { JwtStrategy } from './jwt.stratety'
-import { Env } from "@/env";
+import { Env } from '@/env'
 
 @Module({
   imports: [
