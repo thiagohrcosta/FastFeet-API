@@ -12,12 +12,12 @@ export class ListDeliveryMenController {
   async handle() {
     const fetchDeliveryMen = await this.prisma.user.findMany({
       where: {
-        role: 'DELIVERYMAN'
+        role: 'DELIVERYMAN',
       },
       select: {
         id: true,
         name: true,
-      }
+      },
     })
 
     return {

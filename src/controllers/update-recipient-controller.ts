@@ -44,7 +44,7 @@ export class UpdateRecipientController {
     const data: Prisma.UserUpdateInput = {
       ...(body.name !== undefined && { name: body.name }),
       ...(body.documentId !== undefined && { document_id: body.documentId }),
-      ...(body.address !== undefined && { document_id: body.address }),
+      ...(body.address !== undefined && { address: body.address }),
       ...(body.phone !== undefined && { phone: body.phone }),
       ...(body.email !== undefined && { email: body.email }),
     }
